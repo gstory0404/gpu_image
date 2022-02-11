@@ -1,7 +1,10 @@
 name: Publish to Pub.dev
 
 # 流程触发时机，当有标签创建时触发，如 v1.0.0。当然也可以选择别的触发时机，如 push，release 等
-on: create
+on: 
+  create
+    branches:
+      - master # 在 master 分支发生更新时执行此 action
 
 jobs:
   publishing:
