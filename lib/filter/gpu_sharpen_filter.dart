@@ -11,7 +11,7 @@ class GPUSharpenFilter extends GPUFilter {
 
   ///sepia value ranges from -4.0 to 4.0, with 0.0 as the normal level
   ///
-  ///褐色范围为-4.0到4.0，正常值为0.0
+  ///褐色 (取值范围-4.0 - 4.0，默认0.0)
   GPUSharpenFilter({this.sharpen}) {
     type = "sharpen";
   }

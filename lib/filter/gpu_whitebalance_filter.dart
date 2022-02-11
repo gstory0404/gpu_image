@@ -3,7 +3,7 @@ part of '../gpu_image.dart';
 /// @Author: gstory
 /// @CreateDate: 2022/1/26 3:39 下午
 /// @Email gstory0404@gmail.com
-/// @Description: Adjusts the white balance of an image.
+/// @Description: 色温
 
 class GPUWhiteBalanceFilter extends GPUFilter {
   double? temperature = 5000;

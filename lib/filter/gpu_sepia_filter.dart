@@ -11,7 +11,7 @@ class GPUSepiaFilter extends GPUFilter {
 
   ///sepia value ranges from 0.0 to 1.0, with 1.0 as the normal level
   ///
-  ///褐色范围为0.0到1.0，正常值为1.0
+  ///褐色 (取值范围0.0 - 2.0，默认1.0)
   GPUSepiaFilter({this.sepia}) {
     type = "sepia";
   }

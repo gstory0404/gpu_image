@@ -10,7 +10,7 @@ class GPUSaturationFilter extends GPUFilter {
 
   ///saturation: The degree of saturation or desaturation to apply to the image (0.0 - 2.0, with 1.0 as the default)
   ///
-  ///饱和度范围为0.0到2.0，正常值为1.0
+  ///饱和度（取值范围0.0 - 2.0，默认1.0）
   GPUSaturationFilter({this.saturation}) {
     type = "saturation";
   }

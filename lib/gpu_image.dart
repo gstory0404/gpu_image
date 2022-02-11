@@ -29,6 +29,8 @@ part 'filter/gpu_rgb_filter.dart';
 part 'filter/gpu_whitebalance_filter.dart';
 part 'filter/gpu_monochrome_filter.dart';
 part 'filter/gpu_falsecolor_filter.dart';
+part 'filter/gpu_gamma_filter.dart';
+part 'filter/gpu_highlights_shadows_fliter.dart';
 
 
 

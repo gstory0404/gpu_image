@@ -66,12 +66,12 @@ class _CameraPageState extends State<CameraPage> {
                   onTap: (){
                     cameraKey.currentState?.recordPhoto();
                   },
-                  onLongPressStart: (d){
-                    cameraKey.currentState?.recordVideo();
-                  },
-                  onLongPressEnd: (d){
-                    cameraKey.currentState?.recordVideo();
-                  },
+                  // onLongPressStart: (d){
+                  //   cameraKey.currentState?.recordVideo();
+                  // },
+                  // onLongPressEnd: (d){
+                  //   cameraKey.currentState?.recordVideo();
+                  // },
                   child: Image.asset(
                     "assets/images/take_photo.png",
                     width: 70,

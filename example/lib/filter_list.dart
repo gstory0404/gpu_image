@@ -108,6 +108,16 @@ class FilterList extends StatelessWidget {
                 callBack(filter);
               },
               child: const Text("指定混色")),
+          TextButton(
+              onPressed: () {
+                callBack(GPUGammaFilter(gamma: 1.5));
+              },
+              child: const Text("伽马值")),
+          TextButton(
+              onPressed: () {
+                callBack(GPUHighlightsShadowsFilter(highlights: 1.5,shadows: 0.5));
+              },
+              child: const Text("阴影高光")),
         ],
       ),
     );

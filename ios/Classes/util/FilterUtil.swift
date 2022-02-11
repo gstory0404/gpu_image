@@ -114,6 +114,17 @@ class FilterUtil : NSObject{
              let filter = TransformOperation()
 //             filter.transform = Matrix4x4.init(CATransform3D)
              return filter
+            //伽马值
+         case "gamma":
+             let filter = GammaAdjustment()
+            filter.gamma = Float(dict.value(forKey: "gamma") as! Double)
+             return filter
+            //阴影高光
+         case "highlightsShadows":
+             let filter = HighlightsAndShadows()
+            filter.shadows = Float(dict.value(forKey: "shadows") as! Double)
+            filter.highlights = Float(dict.value(forKey: "highlights") as! Double)
+             return filter
         default:
             return nil
         }

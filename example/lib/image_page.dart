@@ -45,6 +45,7 @@ class _ImagePageState extends State<ImagePage> {
             path: widget.path,
             callBack: GPUImageCallBack(
               saveImage: (path){
+                print("保存图片地址 $path");
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => ImagePage(path: path)));
               }

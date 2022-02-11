@@ -99,6 +99,13 @@ object FilterTools {
             )
             //二维三维变换
             "transformOperation" -> GPUImageTransformFilter()
+            //伽马值
+            "gamma" -> GPUImageGammaFilter((arguments["gamma"] as Double).toFloat())
+            //阴影高光
+            "highlightsShadows" -> GPUImageHighlightShadowFilter(
+                (arguments["shadows"] as Double).toFloat(),
+                (arguments["highlights"] as Double).toFloat()
+            )
             else -> GPUImageFilter()
         }
     }

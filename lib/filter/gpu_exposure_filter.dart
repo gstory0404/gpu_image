@@ -3,7 +3,7 @@ part of '../gpu_image.dart';
 /// @Author: gstory
 /// @CreateDate: 2022/1/26 2:59 下午
 /// @Email gstory0404@gmail.com
-/// @Description: Contrast  对比度
+/// @Description: Contrast  曝光度
 
 class GPUExposureFilter extends GPUFilter {
   double? exposure = 0.0;

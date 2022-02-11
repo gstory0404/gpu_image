@@ -31,6 +31,7 @@ class IndexPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text("手动到设置中开启相机、相册权限，并重启。\n插件不支持主动开启权限，可以使用使用其他权限插件开启权限"),
             MaterialButton(
               color: Colors.blue,
               textColor: Colors.white,
