@@ -1,6 +1,6 @@
 # GPUImage for Flutter
 
-原生部分使用[android-gpuimage](https://github.com/cats-oss/android-gpuimage)与[GPUImage2](https://github.com/BradLarson/GPUImage2)来实现在Flutter中调用GPUImage相关滤镜方法 
+通过[android-gpuimage](https://github.com/cats-oss/android-gpuimage)与[GPUImage2](https://github.com/BradLarson/GPUImage2)来实现在Flutter中调用GPUImage相关滤镜方法 
 
 [体验demo](https://www.pgyer.com/29vy)
 
@@ -175,6 +175,6 @@ imageKey.currentState?.saveImage();
 
 ## 联系方式
 * Email: gstory0404@gmail.com
-* Blog：https://gstory.vercel.app/
+* Blog：https://www.gstory.cn/
 
 * QQ群: <a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=4j2_yF1-pMl58y16zvLCFFT2HEmLf6vQ&jump_from=webapi"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="649574038" title="flutter交流"></a>
