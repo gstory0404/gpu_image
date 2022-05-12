@@ -1,8 +1,12 @@
 # GPUImage for Flutter
 
-通过[android-gpuimage](https://github.com/cats-oss/android-gpuimage)与[GPUImage2](https://github.com/BradLarson/GPUImage2)来实现在Flutter中调用GPUImage相关滤镜方法 
+Flutter中相机、照片、视频添加各种滤镜效果。[体验demo](https://www.pgyer.com/29vy)
 
-[体验demo](https://www.pgyer.com/29vy)
+## 感谢
+- [android-gpuimage](https://github.com/cats-oss/android-gpuimage)
+- [GPUImage2](https://github.com/BradLarson/GPUImage2)
+
+
 
 ## 本地环境
 ```dart
