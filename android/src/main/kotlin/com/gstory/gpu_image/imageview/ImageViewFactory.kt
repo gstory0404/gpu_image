@@ -17,9 +17,9 @@ import io.flutter.plugin.platform.PlatformViewFactory
 
 internal class ImageViewFactory (private val messenger: BinaryMessenger, private val activity: Activity) : PlatformViewFactory(
     StandardMessageCodec.INSTANCE) {
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    override fun create(context: Context, id: Int, args: Any): PlatformView {
+
+    override fun create(context: Context?, viewId: Int, args: Any?): PlatformView {
         val params = args as Map<String?, Any?>
-        return ImageView(context, activity,messenger, id, params)
+        return ImageView(context!!, activity,messenger, viewId, params)
     }
 }

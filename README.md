@@ -10,12 +10,12 @@ Flutter中相机、照片、视频添加各种滤镜效果。[体验demo](https:
 
 ## 本地环境
 ```dart
-[✓] Flutter (Channel stable, 2.10.0, on macOS 12.1 21C52 darwin-x64, locale zh-Hans-CN)
-[✓] Android toolchain - develop for Android devices (Android SDK version 30.0.3)
-[✓] Xcode - develop for iOS and macOS (Xcode 13.2.1)
+[✓] Flutter (Channel stable, 3.0.0, on macOS 12.3.1 21E258 darwin-x64, locale zh-Hans-CN)
+[✓] Android toolchain - develop for Android devices (Android SDK version 33.0.0-rc1)
+[✓] Xcode - develop for iOS and macOS (Xcode 13.3.1)
 [✓] Chrome - develop for the web
-[✓] Android Studio (version 2020.3)
-[✓] VS Code (version 1.63.2)
+[✓] Android Studio (version 2021.1)
+[✓] VS Code (version 1.66.2)
 [✓] Connected device (4 available)
 [✓] HTTP Host Availability
 ```
@@ -24,7 +24,7 @@ Flutter中相机、照片、视频添加各种滤镜效果。[体验demo](https:
 
 ### 1、pubspec.yaml
 ```dart
-gpu_image: ^0.0.1
+gpu_image: ^1.0.0
 ```
 
 ### 2、引入

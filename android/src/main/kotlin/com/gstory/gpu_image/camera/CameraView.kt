@@ -45,7 +45,7 @@ import java.util.concurrent.Executors
 internal class CameraView(
     var context: Context,
     var activity: Activity,
-    messenger: BinaryMessenger?,
+    messenger: BinaryMessenger,
     id: Int,
     params: Map<String?, Any?>
 ) :

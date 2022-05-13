@@ -30,7 +30,7 @@ import java.io.File
 internal class ImageView(
     var context: Context,
     var activity: Activity,
-    messenger: BinaryMessenger?,
+    messenger: BinaryMessenger,
     id: Int,
     params: Map<String?, Any?>
 ) :
