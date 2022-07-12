@@ -1,11 +1,7 @@
-import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gpu_image/gpu_image.dart';
 import 'package:gpu_image_example/filter_list.dart';
 import 'package:gpu_image_example/image_page.dart';
-import 'package:gpu_image_example/seek_to_widget.dart';
 import 'package:gpu_image_example/video_page.dart';
 
 /// @Author: gstory
@@ -21,7 +17,26 @@ class CameraPage extends StatefulWidget {
 }
 
 class _CameraPageState extends State<CameraPage> {
-  final GlobalKey<GPUCameraWidgetState> cameraKey = GlobalKey();
+  final GPUCameraController _controller = GPUCameraController();
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.photoListen((path) {
+      print("拍照保存地址 $path");
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => ImagePage(path: path)));
+    });
+    _controller.videoListen((recordStatus, path) {
+      if(recordStatus == GPUType.startRecord){
+        print("开始录制");
+      }else{
+        print("录制结束 保存地址 $path");
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => VideoPage(path: path)));
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,25 +45,9 @@ class _CameraPageState extends State<CameraPage> {
         alignment: Alignment.bottomCenter,
         children: [
           GPUCameraWidget(
-            key: cameraKey,
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            cameraCallBack: GPUCameraCallBack(
-              recordVideo: (recordStatus,path){
-                if(recordStatus == GPUType.startRecord){
-                  print("开始录制");
-                }else{
-                  print("录制结束 保存地址 $path");
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => VideoPage(path: path)));
-                }
-              },
-              recordPhoto: (path){
-                print("拍照保存地址 $path");
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ImagePage(path: path)));
-              }
-            ),
+            controller: _controller,
           ),
           Positioned(
             bottom: 50,
@@ -64,13 +63,13 @@ class _CameraPageState extends State<CameraPage> {
                 ),
                 GestureDetector(
                   onTap: (){
-                    cameraKey.currentState?.recordPhoto();
+                    _controller.recordPhoto();
                   },
                   // onLongPressStart: (d){
-                  //   cameraKey.currentState?.recordVideo();
+                  //   _controller.recordVideo();
                   // },
                   // onLongPressEnd: (d){
-                  //   cameraKey.currentState?.recordVideo();
+                  //   _controller.recordVideo();
                   // },
                   child: Image.asset(
                     "assets/images/take_photo.png",
@@ -82,7 +81,7 @@ class _CameraPageState extends State<CameraPage> {
                 ),
                 InkWell(
                   onTap: () {
-                    cameraKey.currentState?.switchCamera();
+                    _controller.switchCamera();
                   },
                   child: Image.asset(
                     "assets/images/check_camera.png",
@@ -95,19 +94,20 @@ class _CameraPageState extends State<CameraPage> {
               ],
             ),
           ),
+
           Positioned(
               bottom: 160,
               child: Column(
                 children: [
                   FilterList(
                     callBack: (filter){
-                      cameraKey.currentState?.setFilter(filter);
+                      _controller.setFilter(filter);
                     },
                   ),
                   // SeekToWidget(
                   //   value: 0,
                   //   onChange: (value) {
-                  //     // _childViewKey.currentState
+                  //     // _controller
                   //     //     ?.setProgress( (1).toInt());
                   //   },
                   // )

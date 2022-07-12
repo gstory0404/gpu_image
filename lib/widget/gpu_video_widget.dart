@@ -9,14 +9,14 @@ class GPUVideoWidget extends StatefulWidget {
   final double? width;
   final double? height;
   final String? path;
-  final GPUVideoCallBack? callBack;
+  final GPUVideoController? controller;
 
   const GPUVideoWidget({
     Key? key,
     this.width,
     this.height,
     this.path,
-    this.callBack,
+    this.controller,
   }) : super(key: key);
 
   @override
@@ -26,38 +26,14 @@ class GPUVideoWidget extends StatefulWidget {
 class GPUVideoWidgetState extends State<GPUVideoWidget> {
   final String _viewType = "com.gstory.gpu_image/video";
 
-  MethodChannel? _channel;
-
   @override
   void initState() {
     super.initState();
   }
 
-  //设置滤镜
-  void setFilter(GPUFilter filter) {
-    _channel?.invokeMethod('setFilter', filter.toJson());
-  }
-
-  //保存图片
-  void saveImage() {
-    _channel?.invokeMethod('saveImage', "");
-  }
-
-
-  //播放
-  void play() {
-    _channel?.invokeMethod('play', "");
-  }
-
-  //停止
-  void stop() {
-    _channel?.invokeMethod('stop', "");
-  }
-
-  //注册cannel
-  void _registerChannel(int id) {
-    _channel = MethodChannel("${_viewType}_$id");
-    _channel?.setMethodCallHandler(_platformCallHandler);
+  //注册controller
+  void _onPlatformViewCreated(int id) {
+    widget.controller?.init(id, _viewType);
   }
 
   @override
@@ -73,7 +49,7 @@ class GPUVideoWidgetState extends State<GPUVideoWidget> {
             "height": widget.height ?? MediaQuery.of(context).size.height,
             "path": widget.path,
           },
-          onPlatformViewCreated: _registerChannel,
+          onPlatformViewCreated: _onPlatformViewCreated,
           creationParamsCodec: const StandardMessageCodec(),
         ),
       );
@@ -88,7 +64,7 @@ class GPUVideoWidgetState extends State<GPUVideoWidget> {
             "height": widget.height ?? MediaQuery.of(context).size.height,
             "path": widget.path,
           },
-          onPlatformViewCreated: _registerChannel,
+          onPlatformViewCreated: _onPlatformViewCreated,
           creationParamsCodec: const StandardMessageCodec(),
         ),
       );
@@ -96,13 +72,53 @@ class GPUVideoWidgetState extends State<GPUVideoWidget> {
       return Container();
     }
   }
+}
 
-  //监听原生view传值
+class GPUVideoController{
+  late MethodChannel _methodChannel;
+
+  SaveVideo? _saveCallBack;
+
+  init(int id,String viewType){
+    _methodChannel = MethodChannel("${viewType}_$id");
+    _methodChannel.setMethodCallHandler(_platformCallHandler);
+  }
+
+  ///设置滤镜
+  void setFilter(GPUFilter filter) {
+    _methodChannel.invokeMethod('setFilter', filter.toJson());
+  }
+
+  ///保存图片
+  void saveImage() {
+    _methodChannel.invokeMethod('saveImage', "");
+  }
+
+
+  ///播放
+  void play() {
+    _methodChannel.invokeMethod('play', "");
+  }
+
+  ///停止
+  void stop() {
+    _methodChannel.invokeMethod('stop', "");
+  }
+
+
+  ///保存结果监听
+  void saveListen(dynamic saveImage){
+    _saveCallBack = saveImage;
+  }
+
+  ///监听原生view传值
   Future<dynamic> _platformCallHandler(MethodCall call) async {
     switch(call.method){
       case "saveVideo":
         Map map = call.arguments;
-        widget.callBack?.saveVideo!(map["path"]);
+        if(_saveCallBack != null){
+          _saveCallBack!(map["path"]);
+        }
         break;
     }
   }

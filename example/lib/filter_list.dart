@@ -16,7 +16,7 @@ class FilterList extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
-      height: 50,
+      height: 60,
       child: ListView(
         shrinkWrap: false,
         scrollDirection: Axis.horizontal,
@@ -25,7 +25,7 @@ class FilterList extends StatelessWidget {
               onPressed: () {
                 callBack(GPUNormalFilter());
               },
-              child: const Text("正常")),
+              child: const Text("正常",style: TextStyle(color: Colors.black,fontSize: 16),)),
           TextButton(
               onPressed: () {
                 callBack(GPUContrastFilter(contrast: 4.0));

@@ -18,7 +18,16 @@ class VideoPage extends StatefulWidget {
 }
 
 class _ImagePageState extends State<VideoPage> {
-  final GlobalKey<GPUVideoWidgetState> videoKey = GlobalKey();
+  final GPUVideoController _controller = GPUVideoController();
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.saveListen((path){
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => VideoPage(path: path)));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +39,7 @@ class _ImagePageState extends State<VideoPage> {
           InkWell(
             child: Text("save"),
             onTap: () {
-              videoKey.currentState?.saveImage();
+              _controller.saveImage();
             },
           )
         ],
@@ -38,18 +47,14 @@ class _ImagePageState extends State<VideoPage> {
       body: Column(
         children: [
           GPUVideoWidget(
-            key: videoKey,
+            controller: _controller,
             width: 400,
             height: 400,
             path: widget.path,
-            callBack: GPUVideoCallBack(saveVideo: (path) {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => VideoPage(path: path)));
-            }),
           ),
           FilterList(
             callBack: (filter) {
-              videoKey.currentState?.setFilter(filter);
+              _controller.setFilter(filter);
             },
           ),
           Row(
@@ -58,13 +63,13 @@ class _ImagePageState extends State<VideoPage> {
             children: [
               TextButton(
                 onPressed: () {
-                  videoKey.currentState?.play();
+                  _controller.play();
                 },
                 child: const Text("Play"),
               ),
               TextButton(
                 onPressed: () {
-                  videoKey.currentState?.stop();
+                  _controller.stop();
                 },
                 child: const Text("Stop"),
               ),

@@ -9,14 +9,14 @@ class GPUImageWidget extends StatefulWidget {
   final double? width;
   final double? height;
   final String? path;
-  final GPUImageCallBack? callBack;
+  final GPUImageController? controller;
 
   const GPUImageWidget({
     Key? key,
     this.width,
     this.height,
     this.path,
-    this.callBack,
+    this.controller,
   }) : super(key: key);
 
   @override
@@ -26,30 +26,14 @@ class GPUImageWidget extends StatefulWidget {
 class GPUImageWidgetState extends State<GPUImageWidget> {
   final String _viewType = "com.gstory.gpu_image/image";
 
-  MethodChannel? _channel;
-
-  //是否后置摄像头
-  bool? isBackamera = true;
-
   @override
   void initState() {
     super.initState();
   }
 
-  //设置滤镜
-  void setFilter(GPUFilter filter) {
-    _channel?.invokeMethod('setFilter', filter.toJson());
-  }
-
-  //保存图片
-  void saveImage() {
-    _channel?.invokeMethod('saveImage', "");
-  }
-
-  //注册cannel
-  void _registerChannel(int id) {
-    _channel = MethodChannel("${_viewType}_$id");
-    _channel?.setMethodCallHandler(_platformCallHandler);
+  //注册controller
+  void _onPlatformViewCreated(int id) {
+    widget.controller?.init(id, _viewType);
   }
 
   @override
@@ -65,7 +49,7 @@ class GPUImageWidgetState extends State<GPUImageWidget> {
             "height": widget.height ?? MediaQuery.of(context).size.height,
             "path": widget.path,
           },
-          onPlatformViewCreated: _registerChannel,
+          onPlatformViewCreated: _onPlatformViewCreated,
           creationParamsCodec: const StandardMessageCodec(),
         ),
       );
@@ -80,7 +64,7 @@ class GPUImageWidgetState extends State<GPUImageWidget> {
             "height": widget.height ?? MediaQuery.of(context).size.height,
             "path": widget.path,
           },
-          onPlatformViewCreated: _registerChannel,
+          onPlatformViewCreated: _onPlatformViewCreated,
           creationParamsCodec: const StandardMessageCodec(),
         ),
       );
@@ -89,12 +73,43 @@ class GPUImageWidgetState extends State<GPUImageWidget> {
     }
   }
 
+
+}
+
+class GPUImageController{
+   MethodChannel? _methodChannel;
+
+  SaveImage? _saveCallBack;
+
+  init(int id,String viewType){
+    _methodChannel = MethodChannel("${viewType}_$id");
+    _methodChannel?.setMethodCallHandler(_platformCallHandler);
+  }
+
+  ///设置滤镜
+  void setFilter(GPUFilter filter) {
+    _methodChannel?.invokeMethod('setFilter', filter.toJson());
+  }
+
+  ///保存图片
+  void saveImage() {
+    _methodChannel?.invokeMethod('saveImage', "");
+  }
+
+  ///保存结果监听
+  void saveListen(dynamic saveImage){
+    _saveCallBack = saveImage;
+  }
+
+
   //监听原生view传值
   Future<dynamic> _platformCallHandler(MethodCall call) async {
     switch(call.method){
       case "saveImage":
         Map map = call.arguments;
-        widget.callBack?.saveImage!(map["path"]);
+        if(_saveCallBack != null){
+          _saveCallBack!(map["path"]);
+        }
         break;
     }
   }

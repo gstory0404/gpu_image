@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gpu_image/gpu_image.dart';
 import 'package:gpu_image_example/filter_list.dart';
@@ -19,6 +18,18 @@ class ImagePage extends StatefulWidget {
 
 class _ImagePageState extends State<ImagePage> {
   final GlobalKey<GPUImageWidgetState> imageKey = GlobalKey();
+  final GPUImageController _controller = GPUImageController();
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.saveListen((path){
+      print("保存图片地址 $path");
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => ImagePage(path: path)));
+    });
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +41,7 @@ class _ImagePageState extends State<ImagePage> {
           InkWell(
             child: Text("save"),
             onTap: () {
-              imageKey.currentState?.saveImage();
+              _controller.saveImage();
             },
           )
         ],
@@ -43,19 +54,13 @@ class _ImagePageState extends State<ImagePage> {
             width: 400,
             height: 600,
             path: widget.path,
-            callBack: GPUImageCallBack(
-              saveImage: (path){
-                print("保存图片地址 $path");
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ImagePage(path: path)));
-              }
-            ),
+            controller: _controller,
           ),
           Positioned(
               bottom: 160,
               child: FilterList(
                 callBack: (filter) {
-                  imageKey.currentState?.setFilter(filter);
+                  _controller.setFilter(filter);
                 },
               )),
         ],

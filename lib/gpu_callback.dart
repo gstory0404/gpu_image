@@ -17,22 +17,3 @@ typedef SaveImage = void Function(String path);
 
 ///保存图片返回
 typedef SaveVideo = void Function(String path);
-
-///相机回调
-class GPUCameraCallBack {
-  RecordPhoto? recordPhoto;
-  RecordVideo? recordVideo;
-  GPUCameraCallBack({this.recordPhoto,this.recordVideo});
-}
-
-///图片回调
-class GPUImageCallBack {
-  SaveImage? saveImage;
-  GPUImageCallBack({this.saveImage});
-}
-
-///视频回调
-class GPUVideoCallBack {
-  SaveVideo? saveVideo;
-  GPUVideoCallBack({this.saveVideo});
-}
