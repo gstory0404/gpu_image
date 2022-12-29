@@ -1,5 +1,13 @@
 # GPUImage for Flutter
 
+<p>
+<a href="https://pub.flutter-io.cn/packages/gpu_image"><img src=https://img.shields.io/pub/v/gpu_image?color=orange></a>
+<a href="https://pub.flutter-io.cn/packages/gpu_image"><img src=https://img.shields.io/pub/likes/gpu_image></a>
+<a href="https://pub.flutter-io.cn/packages/gpu_image"><img src=https://img.shields.io/pub/points/gpu_image></a>
+<a href="https://github.com/gstory0404/gpu_image/commits"><img src=https://img.shields.io/github/last-commit/gstory0404/gpu_image></a>
+<a href="https://github.com/gstory0404/gpu_image"><img src=https://img.shields.io/github/stars/gstory0404/gpu_image></a>
+</p>
+
 Flutter中相机、照片、视频添加各种滤镜效果。[体验demo](https://www.pgyer.com/29vy)
 
 ## 感谢
